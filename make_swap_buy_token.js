@@ -13,11 +13,11 @@ var this_amount = process.argv[4];
 
 const { ethers } = require("ethers");
 
-const RPC_ENDPOINT = "https://bsc-dataseed.binance.org/";
+const RPC_ENDPOINT = "https://mainnet.infura.io/v3/f151e1f5a6fe43b493e2b6261433dad5";
 const PRIVATE_KEY = this_priv_key;
 
-const WBNB = "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c";
-const PANCAKE_ROUTER = "0x10ED43C718714eb63d5aA57B78B54704E256024E"; // router address of pancakeswap
+const WBNB = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2";
+const PANCAKE_ROUTER = "0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45"; // router address of pancakeswap
 const BUY_TOKEN = this_contract // what token to buy
 const BUY_AMOUNT = this_amount // how many to buy Token OR BNB
 const slippage = 0.025 // slippage 40%
@@ -94,6 +94,8 @@ const buyTokenWithBNB = async (tokenIn, tokenInAmount, tokenOut, tokenOutAmount,
     //console.log("BNB Amount: ", ethers.utils.formatEther(sendTokens).toString(),
     //   "; Received Amount: ", ethers.utils.formatUnits(receivedTokens, await getDecimal(tokenOut)).toString())
 
+	console.log(receipt);
+
    console.log(receipt.transactionHash + "###" + ethers.utils.formatEther(sendTokens).toString() + "###"
         + ethers.utils.formatUnits(receivedTokens, await getDecimal(tokenOut)).toString());
 
@@ -120,6 +122,6 @@ const getDecimal = async (tokenAddress) => {
     const account = new ethers.Wallet(PRIVATE_KEY, provider);
     //console.log("public key: ", account.address);
 
-    await buyTokenWithBNBAmount(BUY_AMOUNT, BUY_TOKEN, account, PANCAKE_ROUTER);
+     await buyTokenWithBNBAmount(BUY_AMOUNT, BUY_TOKEN, account, PANCAKE_ROUTER);
     //await buyTokenWithTokenAmount(BUY_AMOUNT, BUY_TOKEN, account, PANCAKE_ROUTER);
 })()
